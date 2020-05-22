@@ -40,7 +40,7 @@
   {#if $data.length === undefined}
     <p>Loading...</p>
   {:else}
-    <p>{$data.length}</p>
+    <p>Questionari {$data.length}</p>
     
   <Donut segments={chemioterapy($data)} inner="38" outer="60" width=420 height=250 />    
   <Donut segments={controlVisit($data)} inner="38" outer="60" width=400 height=250 />

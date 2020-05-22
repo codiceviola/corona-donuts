@@ -30,11 +30,13 @@
     const midAngle = options.startAngle + (options.endAngle - options.startAngle) / 2
     C[0] = options.outerRadius * 1.1 * (midAngle < Math.PI ? 1 : -1)
     T[0] = options.outerRadius * 1.2 * (midAngle < Math.PI ? 1 : -1)
-    const anchor = midAngle < Math.PI ? 'start': 'end'
+    const anchor = midAngle < Math.PI ? '-4': '-88'
+    const align = midAngle < Math.PI ? 'start': 'end'
     return {
       points: [A, B, C],
       T,
-      anchor
+      anchor,
+      align
     }
   }
 
@@ -104,6 +106,14 @@
     stroke-width: 0.4px;
     opacity: 0.6;
   }
+  
+  .desc {
+    width: 92px;
+    padding-bottom: 2px;
+    height: auto;
+    font-size: 6px;
+    overflow: auto;
+  }
 </style>
 
 <div style="position: relative">
@@ -115,7 +125,14 @@
 
         <!-- polylines -->
         <polyline stroke={colors[i]} stroke-width=0.5 points={arc.polyline.points} fill="none"></polyline>
-        <text class="legend" transform='translate({arc.polyline.T})' text-anchor="{arc.polyline.anchor}">{arc.label}</text>
+        <foreignObject
+          x="{arc.polyline.anchor}"
+          width="92" height="30" y="-4"
+          transform='translate({arc.polyline.T})'>
+          <div class="desc" xmlns="http://www.w3.org/1999/xhtml" style="text-align: {arc.polyline.align}">
+            {arc.label}
+          </div>
+        </foreignObject>
 
         <!-- label -->
         <text x={arc.centroid[0]-3} y={arc.centroid[1]}>{arc.percentage}</text>
